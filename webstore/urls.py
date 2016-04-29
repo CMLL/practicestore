@@ -22,7 +22,8 @@ router = routers.DefaultRouter()
 router.register(r'users', views.UserViewSet)
 
 urlpatterns = [
-    url(r'^', include(router.urls)),
+    url(r'^', include('apps.store.urls', namespace='store_app')),
+    url(r'^api/', include(router.urls, namespace='api')),
     url(r'^admin/', admin.site.urls),
-    url(r'api/', include('rest_framework.urls', namespace='rest_framework'))
+    url(r'^rest/', include('rest_framework.urls', namespace='rest_framework'))
 ]
