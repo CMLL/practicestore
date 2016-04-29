@@ -10,11 +10,40 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.9/ref/settings/
 """
 
-import os
+import sys
+# Import some utility functions
+from os.path import abspath, basename, dirname, join, normpath
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+# ##### PATH CONFIGURATION ################################
+
+# Fetch Django's project directory
+DJANGO_ROOT = dirname(dirname(abspath(__file__)))
+
+# Fetch the project_root
+PROJECT_ROOT = dirname(DJANGO_ROOT)
+
+# Collect static files here
+STATIC_ROOT = join(PROJECT_ROOT, 'static')
+
+# Collect media files here
+MEDIA_ROOT = join(PROJECT_ROOT, 'media')
+
+# look for static assets here
+STATICFILES_DIRS = (
+    join(PROJECT_ROOT, 'static'),
+)
+
+# look for templates here
+# This is an internal setting, used in the TEMPLATES directive
+PROJECT_TEMPLATES = (
+    join(PROJECT_ROOT, 'templates'),
+)
+
+# Add apps/ to the Python path
+sys.path.append(normpath(join(PROJECT_ROOT, 'apps')))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
@@ -30,7 +59,8 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
-INSTALLED_APPS = [
+DJANGO_APPS = (
+    'suit',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -38,7 +68,17 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework'
-]
+)
+
+LOCAL_APPS = (
+    'users',
+)
+
+THIRTY_APPS = (
+    'crispy_forms',
+)
+
+INSTALLED_APPS = DJANGO_APPS + LOCAL_APPS + THIRTY_APPS
 
 MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',
@@ -60,7 +100,7 @@ ROOT_URLCONF = 'webstore.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': PROJECT_TEMPLATES,
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -128,3 +168,5 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 STATIC_URL = '/static/'
+
+MEDIA_URL = '/media/'

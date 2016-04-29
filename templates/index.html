@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}Inicio{% endblock %}
+
+{% block content-header %}
+    <h1>
+        Dashborad
+    </h1>
+    <!--ol class="breadcrumb">
+        <li><a href="{#% url ':' %#}"><i class="fa fa-products-hunt"></i> Inicio</a></li>
+    </ol-->
+{% endblock content-header %}
+
+{% block content %}
+    <div class="box box-success">
+        <div class="box-header with-border">
+            <h3 class="box-title">
+                Inicio
+            </h3>
+        </div><!-- /.box-header -->
+    </div>
+
+{% endblock %}
+
+{% block wrapper %}
+    {{ block.super }}
+{% endblock %}
